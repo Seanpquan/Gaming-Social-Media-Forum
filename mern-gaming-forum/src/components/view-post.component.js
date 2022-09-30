@@ -149,7 +149,7 @@ export default class ViewPost extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Create Song" className="btn btn-primary" />
+                        <input type="submit" value="Post comment" className="btn btn-primary" />
                     </div>
                 </form>
                 <br></br>
