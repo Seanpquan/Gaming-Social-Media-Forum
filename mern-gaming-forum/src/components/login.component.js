@@ -57,7 +57,7 @@ export default class Login extends Component {
         let databasePassword = '';
         console.log('inputtedUsername: ' + inputtedUsername);
         promises.push(
-            axios.get('http://localhost:5000/users/')
+            axios.get('/users/')
                 .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                     userList = response.data.map(user => user.username)
                     allUserData = response.data;

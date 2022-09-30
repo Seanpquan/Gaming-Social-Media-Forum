@@ -63,7 +63,7 @@ export default class LoggedExercises extends Component {
 
     //get the list of exercises from database
     componentDidMount() {
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                 this.setState({ exercises: response.data })
             })
@@ -73,7 +73,7 @@ export default class LoggedExercises extends Component {
     }
     //id is an input. (mongoDb automatically assigned)
     deleteExercise(id) {
-        axios.delete('http://localhost:5000/exercises/' + id)
+        axios.delete('/exercises/' + id)
             .then(response => console.log(response.data)); //will say 'exercise deleted' (from backend)
 
         this.setState({  //react automatically updates page with this new state

@@ -40,7 +40,7 @@ export default class CreateUser extends Component {
         let inputtedUsername = this.state.username;
         console.log('inputtedUsername: ' + inputtedUsername);
         promises.push(
-            axios.get('http://localhost:5000/users/')
+            axios.get('/users/')
                 .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                     userList = response.data.map(user => user.username)
 
@@ -67,7 +67,7 @@ export default class CreateUser extends Component {
 
                 console.log(user);
                 //sends post  request to the backend endpoint. expects a JSON object in request.  this is the 'user' input argument.
-                axios.post('http://localhost:5000/users/add', user)//lookg at users.js 'post'
+                axios.post('/users/add', user)//lookg at users.js 'post'
                     .then(res => console.log(res.data));
 
                 this.setState({

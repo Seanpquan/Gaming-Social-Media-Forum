@@ -37,7 +37,7 @@ export default class UsersList extends Component {
     }
     //get the list of exercises from database
     componentDidMount() {
-        axios.get('http://localhost:5000/users/')
+        axios.get('/users/')
             .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                 this.setState({ users: response.data })
             })
@@ -46,7 +46,7 @@ export default class UsersList extends Component {
             })
 
         //get all the exercises in an array
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                 this.setState({ exercises: response.data })
             })
@@ -60,7 +60,7 @@ export default class UsersList extends Component {
         //also delete exercisees!!!! 
         this.removeExercisesWithDeletedUser(id);
 
-        axios.delete('http://localhost:5000/users/' + id)
+        axios.delete('/users/' + id)
             .then(response => console.log(response.data)); //will say 'user deleted' (from backend)
 
         this.setState({  //react automatically updates page with this new state
@@ -87,9 +87,9 @@ export default class UsersList extends Component {
     removeExercisesWithDeletedUser(userIdToDelete) {
         let promises = [];
         let usernameToDelete = '';
-        console.log('http://localhost:5000/users/' + userIdToDelete);
+        console.log('/users/' + userIdToDelete);
         promises.push(
-            axios.get('http://localhost:5000/users/' + userIdToDelete)
+            axios.get('/users/' + userIdToDelete)
                 .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                     usernameToDelete = response.data.username;
                     console.log('response.data: ' + JSON.stringify(response.data));
@@ -108,7 +108,7 @@ export default class UsersList extends Component {
                     console.log('MATCH!');
                     //detele the exercise entry
 
-                    axios.delete('http://localhost:5000/exercises/' + currExercise._id)
+                    axios.delete('/exercises/' + currExercise._id)
                         .then(response => console.log(response.data)) //will say 'exercise deleted' (from backend)
 
 

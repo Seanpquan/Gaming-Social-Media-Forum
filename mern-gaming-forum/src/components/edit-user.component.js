@@ -21,7 +21,7 @@ export default class EditUser extends Component {
     componentDidMount() {
         console.log('this.props.match.params.id: ' + this.props.match.params.id);
 
-        axios.get('http://localhost:5000/users/' + this.props.match.params.id)
+        axios.get('/users/' + this.props.match.params.id)
             .then(response => {
                 //console.log('response.data: ' + JSON.stringify(response.data));
                 this.setState({
@@ -36,7 +36,7 @@ export default class EditUser extends Component {
             })
 
         //get all the exercises in an array
-        axios.get('http://localhost:5000/exercises/')
+        axios.get('/exercises/')
             .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                 this.setState({ exercises: response.data })
             })
@@ -76,11 +76,11 @@ export default class EditUser extends Component {
                 }
 
                 console.log('currExercise._id: ' + currExercise._id);
-                console.log('http://localhost:5000/exercises/' + currExercise._id);
+                console.log('/exercises/' + currExercise._id);
 
                 //get request and make copy
                 promises.push(
-                    axios.get('http://localhost:5000/exercises/' + currExercise._id)
+                    axios.get('/exercises/' + currExercise._id)
                         .then(async (response) => {
                             console.log('response.data: ' + JSON.stringify(response.data));
                             updatedUsernameExercise.username = newUserName;
@@ -91,8 +91,8 @@ export default class EditUser extends Component {
                             console.log('updatedUsernameExercise: ' + JSON.stringify(updatedUsernameExercise));
 
                             //Post request
-                            console.log('post request: ' + 'http://localhost:5000/exercises/update/' + currExercise._id);
-                            axios.post('http://localhost:5000/exercises/update/' + currExercise._id, updatedUsernameExercise)
+                            console.log('post request: ' + '/exercises/update/' + currExercise._id);
+                            axios.post('/exercises/update/' + currExercise._id, updatedUsernameExercise)
                                 .then(res => console.log(res.data));
                         }
                         )
@@ -111,7 +111,7 @@ export default class EditUser extends Component {
 
         console.log(user);
 
-        axios.post('http://localhost:5000/users/update/' + this.props.match.params.id, user)
+        axios.post('/users/update/' + this.props.match.params.id, user)
             .then(res => console.log(res.data));
 
         //change the names in exercises!

@@ -24,7 +24,7 @@ export default class CreateExercises extends Component {
     }
     //react lifecycle method. this is automaticlaly called before anything is displayed on the page
     componentDidMount() {
-        axios.get('http://localhost:5000/users/')
+        axios.get('/users/')
             .then(response => {
                 if (response.data.length > 0) { //check at least one user in database
                     this.setState({
@@ -92,7 +92,7 @@ export default class CreateExercises extends Component {
         console.log(exercise);
         let promises = [];
         promises.push(
-            axios.post('http://localhost:5000/exercises/add', exercise)
+            axios.post('/exercises/add', exercise)
                 .then(res => console.log(res.data))
         );
 
