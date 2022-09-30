@@ -39,17 +39,17 @@ export default class IntroductionPage extends Component {
         }
         return (
             <div>
-                <h1>Welcome to Le Epic Forum, {this.getCookie("currentCookie")}!</h1>
+                <h1>Welcome to Big Game Xchange, {this.getCookie("currentCookie")}!</h1>
                 <h3> What is this app for?</h3>
                 <p>
-                    Le Epic Forum is your one-stop shop for chatting and discussion with fellow gamers.
+                    Big Game Xchange is your one-stop shop for chatting and discussion with fellow gamers.
                 </p>
                 <h3>How to use this forum</h3>
                 <ul>
                     <li>"All Posts" shows all posts by all users</li>
                     <li>"User List" shows all active users</li>
                     <li>"Create Post" is self-explanatory</li>
-                    <li>"Le Epic Forum" can be clicked at any time to see this instruction page</li>
+                    <li>"Big Game Xchange" can be clicked at any time to see this instruction page</li>
                 </ul>
                 <h3>Info about the creator of this app</h3>
                 <p>

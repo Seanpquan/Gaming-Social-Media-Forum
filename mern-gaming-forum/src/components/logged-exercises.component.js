@@ -137,13 +137,13 @@ export default class LoggedExercises extends Component {
 
         return (
             <div>
-                <h3>Logs for {this.props.match.params.username}</h3>
+                <h3>Posts from {this.props.match.params.username}</h3>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Username</th>
-                            <th>Title of Post</th>
-                            <th>Beginning of body</th>
+                            <th>User</th>
+                            <th>Title</th>
+                            <th>Body</th>
                             <th>Date</th>
                             <th>Actions</th>
                         </tr>

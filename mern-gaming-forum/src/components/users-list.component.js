@@ -137,12 +137,12 @@ export default class UsersList extends Component {
     render() {
         return (
             <div>
-                <h3>Song list</h3>
+                <h3>User list</h3>
                 <table className="table">
                     <thead className="thead-light">
                         <tr>
-                            <th>Song</th>
-                            <th>View Logs</th>
+                            <th>User</th>
+                            <th>Posts</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
