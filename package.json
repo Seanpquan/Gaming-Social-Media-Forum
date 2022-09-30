@@ -1,11 +1,11 @@
 {
-  "name": "backend",
+  "name": "Gaming-Social-Media-Forum",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "node mern-gaming-forum/backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "heroku-postbuild": "cd mern-gaming-forum && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [],
   "author": "",

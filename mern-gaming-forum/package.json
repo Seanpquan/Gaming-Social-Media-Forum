@@ -17,8 +17,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [
