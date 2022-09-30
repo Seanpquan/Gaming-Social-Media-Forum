@@ -26,7 +26,7 @@ const usersRouter = require('./routes/users');
 app.use('/exercises', exercisesRouter);
 app.use('/users', usersRouter);
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "mern-gaming-forum", "build", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
 
 app.listen(port, () => {
