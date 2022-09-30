@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node mern-gaming-forum/backend/server.js",
+    "build": "npm install --prefix mern-gaming-forum/ && npm run build --prefix mern-gaming-forum/",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "cd mern-gaming-forum && npm install --only=dev && npm install && npm run build"
   },
