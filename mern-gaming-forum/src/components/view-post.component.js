@@ -99,6 +99,11 @@ export default class ViewPost extends Component {
     }
 
     onChangeNewComment(e) {
+        if (this.getCookie("currentCookie").length == 0) {
+            alert("Please log in to comment!");
+            this.props.history.push('/login');
+        }
+
         this.setState({
             newComment: e.target.value
         })
@@ -125,6 +130,11 @@ export default class ViewPost extends Component {
 
 
     onSubmit(e) {
+        if (this.getCookie("currentCookie").length == 0) {
+            alert("Please log in to comment!");
+            this.props.history.push('/login');
+        }
+
         e.preventDefault();
         console.log('this.state.replyUserState: ' + this.state.replyUserState);
         this.state.comments.push(this.getCookie("currentCookie"));
@@ -163,10 +173,6 @@ export default class ViewPost extends Component {
             comment_box.focus();
         };
 
-        if (this.getCookie("currentCookie").length == 0) {
-            alert("Please log in first");
-            this.props.history.push('/login');
-        }
         return (
             <div>
                 {/* <input type="text" id="my_textbox" value="My Text" />

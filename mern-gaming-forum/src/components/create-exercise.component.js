@@ -106,7 +106,7 @@ export default class CreateExercises extends Component {
 
     render() {
         if (this.getCookie("currentCookie").length == 0) {
-            alert("Please log in first");
+            alert("Please log in to post!");
             this.props.history.push('/login');
         }
         return (
