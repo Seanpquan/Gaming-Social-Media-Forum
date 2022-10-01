@@ -128,7 +128,7 @@ export default class Login extends Component {
 
                         this.createCookie("currentCookie", inputtedUsername, 1)
                         console.log('document.cookie: ' + document.cookie);
-                        this.props.history.push('/logged-exercises/ALL/');
+                        this.props.history.push('/');
                         //window.location = '/';
                     })
 
@@ -185,6 +185,10 @@ export default class Login extends Component {
     }
 
     render() {
+        if (this.getCookie("currentCookie").length != 0) {  //if the user is already signed in
+            alert("You are already logged in");
+            this.props.history.push('/');
+        }
         return (
             <div>
                 <h3>Account Login</h3>

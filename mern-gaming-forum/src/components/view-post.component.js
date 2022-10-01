@@ -166,7 +166,7 @@ export default class ViewPost extends Component {
             <div>
                 {/* <input type="text" id="my_textbox" value="My Text" />
                 <button id="my_button">Focus</button> */}
-                <p>You are on the View Post component for {this.props.match.params.id}</p>
+                {/* <p>You are on the View Post component for {this.props.match.params.id}</p> */}
                 <h2>{this.state.description}</h2>
                 <h5>Posted on {stringDate}, by {this.state.username}.</h5>
                 <p>{this.state.duration}</p>
