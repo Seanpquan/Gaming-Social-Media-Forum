@@ -126,6 +126,10 @@ export default class CreateUser extends Component {
     }
 
     render() {
+        if (this.getCookie("currentCookie").length != 0) {  //if the user is already signed in
+            alert("You are already logged in.");
+            this.props.history.push('/');
+        }
         return (
             <div>
                 <h3>Create New User</h3>
