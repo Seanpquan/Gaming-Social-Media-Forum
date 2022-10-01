@@ -6,7 +6,9 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 //Exercise component. a functional react component
 const Exercise = props => (
     <tr>
-        <td>{props.exercise.username}</td>
+        <td>
+            <Link to={"/logged-exercises/" + props.comment.username}>{props.comment.username}</Link>
+        </td>
         <td>
             <Link to={"/view-post/" + props.exercise._id}>{props.exercise.description}</Link>
         </td>
