@@ -23,7 +23,9 @@ const Exercise = props => (
 //other person's exercise (not the current user)
 const OthersExercise = props => (
     <tr>
-        <td>{props.exercise.username}</td>
+        <td>
+            <Link to={"/logged-exercises/" + props.exercise.username}>{props.exercise.username}</Link>
+        </td>
         <td>
             <Link to={"/view-post/" + props.exercise._id}>{props.exercise.description}</Link>
         </td>
