@@ -170,7 +170,7 @@ export default class ViewPost extends Component {
                 <h2>{this.state.description}</h2>
                 <h5>Posted on {stringDate}, by {this.state.username}.</h5>
                 <p>{this.state.duration}</p>
-                <p>--------------------------------COMMENT SECTION--------------------------------</p>
+                <hr></hr>
 
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
