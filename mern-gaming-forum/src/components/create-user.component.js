@@ -133,7 +133,7 @@ export default class CreateUser extends Component {
                     </div>
                     <div className="form-group">
                         <label>Password: </label>
-                        <input type="password"
+                        <input type="text"
                             required
                             className="form-control"
                             value={this.state.password}
