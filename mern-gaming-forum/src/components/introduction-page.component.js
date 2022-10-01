@@ -33,13 +33,9 @@ export default class IntroductionPage extends Component {
     }
 
     render() {
-        if (this.getCookie("currentCookie").length == 0) {
-            alert("Please log in first");
-            this.props.history.push('/login');
-        }
         return (
             <div>
-                <h1>Welcome to Big Game Xchange, {this.getCookie("currentCookie")}!</h1>
+                <h1>Welcome to Big Game Xchange {this.getCookie("currentCookie")}!</h1>
                 <h3> What is this app for?</h3>
                 <p>
                     Big Game Xchange is the place to go for gaming news, reviews, commentary, and discussion with fellow gamers.

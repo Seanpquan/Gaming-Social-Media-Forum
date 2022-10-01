@@ -162,6 +162,11 @@ export default class ViewPost extends Component {
             const comment_box = document.getElementById('comment_box');
             comment_box.focus();
         };
+
+        if (this.getCookie("currentCookie").length == 0) {
+            alert("Please log in first");
+            this.props.history.push('/login');
+        }
         return (
             <div>
                 {/* <input type="text" id="my_textbox" value="My Text" />
