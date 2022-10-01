@@ -111,11 +111,11 @@ export default class EditExercise extends Component {
             axios.post('/exercises/update/' + this.props.match.params.id, exercise)
                 .then(res => console.log(res.data))
         );
+
         Promise.all(promises2).then(() => {
-            this.props.history.push('/logged-exercises/ALL');
+            this.props.history.push('/view-post/' + this.props.match.params.id);
             //window.location = '/logged-exercises/ALL/';
         });
-
 
     }
 
