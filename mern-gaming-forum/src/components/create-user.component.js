@@ -34,11 +34,19 @@ export default class CreateUser extends Component {
         e.preventDefault(); //instead of doing normally do, it will do what we want (the following:)
         //you CAN create variables as long as its only used in this one method
 
+
+
         //get list of users
         let userList = [];
         let promises = [];
         let inputtedUsername = this.state.username;
         console.log('inputtedUsername: ' + inputtedUsername);
+
+        if (inputtedUsername.length < 3) {
+            alert("Username must be at least 3 characters!");
+            window.location = '/user/';
+        }
+
         promises.push(
             axios.get('/users/')
                 .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
