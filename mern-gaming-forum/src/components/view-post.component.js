@@ -156,40 +156,39 @@ export default class ViewPost extends Component {
 
 
     onSubmit(e) {
+        e.preventDefault();
         if (this.getCookie("currentCookie").length == 0) {
             alert("Please log in to comment!");
             window.location = '/login'
         }
+        else {
+            console.log('this.state.replyUserState: ' + this.state.replyUserState);
+            this.state.comments.push(this.getCookie("currentCookie"));
+            this.state.comments.push(this.state.newComment); //asdf
 
-        e.preventDefault();
-        console.log('this.state.replyUserState: ' + this.state.replyUserState);
-        this.state.comments.push(this.getCookie("currentCookie"));
-        this.state.comments.push(this.state.newComment); //asdf
+            const exercise = {
+                username: this.state.username,
+                description: this.state.description,
+                duration: this.state.duration,
+                date: this.state.date,
+                comments: this.state.comments,
+            }
 
-        const exercise = {
-            username: this.state.username,
-            description: this.state.description,
-            duration: this.state.duration,
-            date: this.state.date,
-            comments: this.state.comments,
+
+
+            console.log('updated exercise: ' + JSON.stringify(exercise));
+
+            let promises2 = [];
+            promises2.push(
+                axios.post('/exercises/update/' + this.props.match.params.id, exercise)
+                    .then(res => console.log(res.data))
+            );
+            Promise.all(promises2).then(() => {
+                this.props.history.push('/logged-exercises/ALL');
+                this.props.history.push('/view-post/' + this.props.match.params.id);
+                //window.location = '/logged-exercises/ALL/';
+            });
         }
-
-
-
-        console.log('updated exercise: ' + JSON.stringify(exercise));
-
-        let promises2 = [];
-        promises2.push(
-            axios.post('/exercises/update/' + this.props.match.params.id, exercise)
-                .then(res => console.log(res.data))
-        );
-        Promise.all(promises2).then(() => {
-            this.props.history.push('/logged-exercises/ALL');
-            this.props.history.push('/view-post/' + this.props.match.params.id);
-            //window.location = '/logged-exercises/ALL/';
-        });
-
-
     }
 
     render() {
