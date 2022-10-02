@@ -71,7 +71,7 @@ export default class UsersList extends Component {
 
     userList() {
         //getting Youtube url
-        console.log('document.cookie from users-list: ' + document.cookie);
+        // console.log('document.cookie from users-list: ' + document.cookie);
         let cookieUsername = this.getCookie("currentCookie");
         return this.state.users
             .map(currentuser => {
@@ -84,28 +84,70 @@ export default class UsersList extends Component {
             })  //these are two 'props'
     }
 
+    removeCommentsWithDeletedUser(usernameToDelete) {
+        let newCommentsArray = [];  //same as before, but without deleted user
+        console.log('usernameToDelete: ' + usernameToDelete);
+        axios.get('/exercises/')
+            .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
+                // console.log('response.data: ' + JSON.stringify(response.data));
+                for (let i = 0; i < response.data.length; i++) {
+                    //console.log(response.data[i].comments); //gets comment from specific post
+
+                    for (let k = 0; k < response.data[i].comments.length; k = k + 2) {  //iterates thru comments on specific post
+
+                        if (response.data[i].comments[k] == usernameToDelete) {
+                            // console.log('k: ' + k + 'user: ' + response.data[i].comments[k]);
+                            // console.log('k+1: ' + response.data[i].comments[k + 1]);
+                            newCommentsArray.push('deleted');
+                            newCommentsArray.push('deleted');
+                        }
+                        else {
+                            newCommentsArray.push(response.data[i].comments[k]);
+                            newCommentsArray.push(response.data[i].comments[k + 1]);
+                        }
+                    }
+                    // console.log('newCommentsArray: ' + newCommentsArray);  //contains correct array of comments for this post
+                    // console.log('postID: ' + response.data[i]._id);
+
+                    const exercise = {
+                        username: response.data[i].username,
+                        description: response.data[i].description,
+                        duration: response.data[i].duration,
+                        date: response.data[i].date,
+                        comments: newCommentsArray,  //only thing changed
+                    }
+
+                    axios.post('/exercises/update/' + response.data[i]._id, exercise)
+                        .then(res => console.log(res.data));
+
+                }
+
+            })
+
+    }
+
     removeExercisesWithDeletedUser(userIdToDelete) {
         let promises = [];
         let usernameToDelete = '';
-        console.log('/users/' + userIdToDelete);
+        // console.log('/users/' + userIdToDelete);
         promises.push(
             axios.get('/users/' + userIdToDelete)
                 .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                     usernameToDelete = response.data.username;
-                    console.log('response.data: ' + JSON.stringify(response.data));
+                    // console.log('response.data: ' + JSON.stringify(response.data));
 
                 })
         )
 
         Promise.all(promises).then(() => {
-            console.log('usernameToDelete: ' + usernameToDelete)
+            // console.log('usernameToDelete: ' + usernameToDelete)
             for (const currExercise of this.state.exercises) {
 
                 let currUsername = currExercise.username;
-                console.log('currUsername: ' + currUsername);
+                // console.log('currUsername: ' + currUsername);
 
                 if (currUsername === usernameToDelete) {
-                    console.log('MATCH!');
+                    // console.log('MATCH!');
                     //detele the exercise entry
 
                     axios.delete('/exercises/' + currExercise._id)
@@ -114,6 +156,8 @@ export default class UsersList extends Component {
 
                 }
             }
+            this.removeCommentsWithDeletedUser(usernameToDelete);
+
             this.props.history.push('/logout/');
         });
     }
