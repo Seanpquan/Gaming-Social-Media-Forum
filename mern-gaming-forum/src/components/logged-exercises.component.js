@@ -12,13 +12,21 @@ const Exercise = props => (
         <td>
             <Link to={"/view-post/" + props.exercise._id}>{props.exercise.description}</Link>
         </td>
-        <td>{props.exercise.duration.substring(0, 50)}</td>
+        <td>{bodyPreview(props.exercise.duration.substring(0, 50))}</td>
         <td>{props.exercise.date.substring(5, 10)}</td>
         <td>
             <Link to={"/edit/" + props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
         </td>
     </tr>
 )
+
+{/* <td>{props.exercise.duration.substring(0, 50)}</td> */ }
+const bodyPreview = (beginningOfBody) => {
+    if (beginningOfBody.length == 50) {
+        return beginningOfBody + ' ... {continued}';
+    }
+    return beginningOfBody;
+}
 
 //other person's exercise (not the current user)
 const OthersExercise = props => (
@@ -29,7 +37,7 @@ const OthersExercise = props => (
         <td>
             <Link to={"/view-post/" + props.exercise._id}>{props.exercise.description}</Link>
         </td>
-        <td>{props.exercise.duration.substring(0, 50)}</td>
+        <td>{bodyPreview(props.exercise.duration.substring(0, 50))}</td>
         <td>{props.exercise.date.substring(5, 10)}</td>
     </tr>
 )
