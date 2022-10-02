@@ -102,8 +102,6 @@ export default class ViewPost extends Component {
             .catch(function (error) {
                 console.log(error);
             })
-        console.log('hello from componentDidMount');
-
     }
 
 
@@ -163,31 +161,44 @@ export default class ViewPost extends Component {
         }
         else {
             console.log('this.state.replyUserState: ' + this.state.replyUserState);
-            this.state.comments.push(this.getCookie("currentCookie"));
-            this.state.comments.push(this.state.newComment); //asdf
 
-            const exercise = {
-                username: this.state.username,
-                description: this.state.description,
-                duration: this.state.duration,
-                date: this.state.date,
-                comments: this.state.comments,
-            }
+            //update comments list first (concurrency issue)
+            axios.get('/exercises/' + this.props.match.params.id)
+                .then(response => {
+                    this.setState({
+                        comments: response.data.comments,
+                    })
+                    //add new comment to end of array
+                    this.state.comments.push(this.getCookie("currentCookie"));
+                    this.state.comments.push(this.state.newComment);
+
+                    const exercise = {
+                        username: this.state.username,
+                        description: this.state.description,
+                        duration: this.state.duration,
+                        date: this.state.date,
+                        comments: this.state.comments,
+                    }
 
 
 
-            console.log('updated exercise: ' + JSON.stringify(exercise));
+                    console.log('updated exercise: ' + JSON.stringify(exercise));
 
-            let promises2 = [];
-            promises2.push(
-                axios.post('/exercises/update/' + this.props.match.params.id, exercise)
-                    .then(res => console.log(res.data))
-            );
-            Promise.all(promises2).then(() => {
-                this.props.history.push('/logged-exercises/ALL');
-                this.props.history.push('/view-post/' + this.props.match.params.id);
-                //window.location = '/logged-exercises/ALL/';
-            });
+                    let promises2 = [];
+                    promises2.push(
+                        axios.post('/exercises/update/' + this.props.match.params.id, exercise)
+                            .then(res => console.log(res.data))
+                    );
+                    Promise.all(promises2).then(() => {
+                        this.props.history.push('/logged-exercises/ALL');
+                        this.props.history.push('/view-post/' + this.props.match.params.id);
+                        //window.location = '/logged-exercises/ALL/';
+                    });
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
         }
     }
 
