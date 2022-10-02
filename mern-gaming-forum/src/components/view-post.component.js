@@ -15,8 +15,34 @@ const Comment = props => (
 )
 
 const editCommentBox = (postID, username) => {
-    console.log('replying to: ' + username);
-    window.location = '/view-post/' + postID + "?replyuser=" + username;
+    if (getCookie("currentCookie").length == 0) {
+        alert("Please log in to comment!");
+        window.location = '/login'
+    }
+    else {
+        console.log('replying to: ' + username);
+        window.location = '/view-post/' + postID + "?replyuser=" + username;
+    }
+
+}
+
+const getCookie = (cname) => {
+    //https://www.w3schools.com/js/js_cookies.asp
+
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+
 }
 
 const input = document.getElementById('form-group');
