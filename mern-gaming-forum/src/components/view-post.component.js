@@ -101,7 +101,7 @@ export default class ViewPost extends Component {
     onChangeNewComment(e) {
         if (this.getCookie("currentCookie").length == 0) {
             alert("Please log in to comment!");
-            this.props.history.push('/login');
+            window.location = '/login'
         }
 
         this.setState({
@@ -132,7 +132,7 @@ export default class ViewPost extends Component {
     onSubmit(e) {
         if (this.getCookie("currentCookie").length == 0) {
             alert("Please log in to comment!");
-            this.props.history.push('/login');
+            window.location = '/login'
         }
 
         e.preventDefault();
