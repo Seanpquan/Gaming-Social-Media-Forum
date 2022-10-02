@@ -104,8 +104,9 @@ export default class EditExercise extends Component {
         let editedBool = false;
         axios.get('/exercises/' + this.props.match.params.id)
             .then(response => {
-                editedBool = response.data.description.includes('{edited}');
+                editedBool = response.data.description.includes('{edited}') && this.state.description.includes('{edited}');
                 console.log('response.data.description: ' + response.data.description);
+                console.log('this.state.description: ' + this.state.description);
                 console.log('editedBool:' + editedBool);
                 if (!editedBool) {  //if not edited yet
                     console.log('unedited yet!');
