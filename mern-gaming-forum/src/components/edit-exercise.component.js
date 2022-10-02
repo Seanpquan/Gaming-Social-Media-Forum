@@ -24,6 +24,7 @@ export default class EditExercise extends Component {
     }
 
     componentDidMount() {
+
         axios.get('/exercises/' + this.props.match.params.id)
             .then(response => {
                 console.log('response.data: ' + JSON.stringify(response.data));
@@ -98,24 +99,45 @@ export default class EditExercise extends Component {
     onSubmit(e) {
         e.preventDefault();
         this.onChangeUsername();
-        const exercise = {
-            username: this.state.username,
-            description: this.state.description,
-            duration: this.state.duration,
-            date: this.state.date
-        }
 
-        console.log(exercise);
-        let promises2 = [];
-        promises2.push(
-            axios.post('/exercises/update/' + this.props.match.params.id, exercise)
-                .then(res => console.log(res.data))
-        );
 
-        Promise.all(promises2).then(() => {
-            this.props.history.push('/view-post/' + this.props.match.params.id);
-            //window.location = '/logged-exercises/ALL/';
-        });
+        let editedBool = false;
+        axios.get('/exercises/' + this.props.match.params.id)
+            .then(response => {
+                editedBool = response.data.description.includes('{edited}');
+                console.log('response.data.description: ' + response.data.description);
+                console.log('editedBool:' + editedBool);
+                if (!editedBool) {  //if not edited yet
+                    console.log('unedited yet!');
+                    console.log('description before: ' + this.state.description);
+                    this.state.description = '{edited} ' + this.state.description;
+                    console.log('description after: ' + this.state.description);
+                }
+
+                const exercise = {
+                    username: this.state.username,
+                    description: this.state.description,
+                    duration: this.state.duration,
+                    date: this.state.date
+                }
+
+
+                console.log(exercise);
+                let promises2 = [];
+                promises2.push(
+                    axios.post('/exercises/update/' + this.props.match.params.id, exercise)
+                        .then(res => console.log(res.data))
+                );
+
+                Promise.all(promises2).then(() => {
+                    this.props.history.push('/view-post/' + this.props.match.params.id);
+                    //window.location = '/logged-exercises/ALL/';
+                });
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
 
     }
 
