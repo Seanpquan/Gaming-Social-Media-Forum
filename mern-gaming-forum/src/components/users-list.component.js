@@ -114,6 +114,7 @@ export default class UsersList extends Component {
 
                 }
             }
+            this.props.history.push('/logout/');
         });
     }
 
