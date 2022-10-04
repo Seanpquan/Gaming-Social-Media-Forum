@@ -49,11 +49,11 @@ export default class IntroductionPage extends Component {
                 </ul>
                 <h3>Info about the creator of this app</h3>
                 <p>
-                    Hello! I'm Sean, a 3rd year computer science student at UBC, from Vancouver, Canada.
+                    Hello! I'm Sean, a 3rd year CS student at UBC from Vancouver, Canada.
                     Ever since I started programming in high school, I was always striving to explore
                     new tools and technologies, from individual technical endeavours, to collaborative
-                    hackathon projects, to work experience in industry. Feel free to check out my resume, and if you have any
-                    questions, or just want to chat, don't hesitate to add me on LinkedIn @https://www.linkedin.com/in/seanquan/.
+                    projects, to work experience in industry. Feel free to check out my resume, and if you have any
+                    questions, or just want to chat, don't hesitate to add me on LinkedIn @https://www.linkedin.com/in/seanquan/
                     Thanks for visiting!
                     <br></br><br></br>
                     I devote this website to my favourite rapper, Corey Struggs.  Died @ 5'7", 425 lbs.  RIP big guy.
