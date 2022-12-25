@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import '../Card.css'
+const cutOffDescLength = 300;  //description length cutoff before "... {continued}"
 //Exercise component. a functional react component
 const Exercise = props => (
     <tr>
@@ -20,9 +22,43 @@ const Exercise = props => (
     </tr>
 )
 
+const CardConst = props => (
+    <div class="card">
+        <div class="topRow">
+            <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
+            <a href={"/view-post/" + props.exercise._id} class="right"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+        </div>
+        <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
+        <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
+        <div class="actionRow">
+            <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
+        </div>
+        <div class="ownPostRow">
+            <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }} class="right">Delete</a>
+            <a href={"/edit/" + props.exercise._id} class="right">Edit</a>
+        </div>
+    </div>
+)
+
+const OtherCardConst = props => (
+    <div class="card">
+        <div class="topRow">
+            <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
+            <a href={"/view-post/" + props.exercise._id} class="right"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+        </div>
+        <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
+        <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
+        <div class="actionRow">
+            <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
+        </div>
+    </div>
+)
+
+
+
 {/* <td>{props.exercise.duration.substring(0, 50)}</td> */ }
 const bodyPreview = (beginningOfBody) => {
-    if (beginningOfBody.length == 50) {
+    if (beginningOfBody.length == cutOffDescLength) {
         return beginningOfBody + ' ... {continued}';
     }
     return beginningOfBody;
@@ -135,8 +171,48 @@ export default class LoggedExercises extends Component {
         }
     }
 
+    cardList(selectedUsername) {
+        let cookieUsername = this.getCookie("currentCookie");
+        if (selectedUsername !== "ALL" && selectedUsername === cookieUsername) {
+            var newarray = this.state.exercises.slice().reverse();  //sorted recent to oldest
+            return newarray
+                .filter(function (currentexercise) {
+                    return currentexercise.username == selectedUsername;
+                })
+                .map(currentexercise => {
+                        return <CardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;                
+                    }
+                )
+        }
 
+        if (selectedUsername !== "ALL" && selectedUsername !== cookieUsername) {
+            var newarray = this.state.exercises.slice().reverse();  //sorted recent to oldest
+            return newarray
+                .filter(function (currentexercise) {
+                    return currentexercise.username == selectedUsername;
+                })
+                .map(currentexercise => {
+                        return <OtherCardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;                
+                    }
+                )
+        }
 
+        if (selectedUsername === "ALL") {
+                var newarray = this.state.exercises.slice().reverse();  //sorted recent to oldest
+                return newarray
+                .map(currentexercise => {
+                    if (currentexercise.username == cookieUsername) {
+                        return <CardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;
+                    }
+                    else {
+                        return <OtherCardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;
+                    }
+                        
+                    }
+                )
+        }
+
+    }
 
 
     getCurrentDate() {
@@ -150,7 +226,9 @@ export default class LoggedExercises extends Component {
         return (
             <div>
                 <h3>Posts from {this.props.match.params.username}</h3>
-                <table className="table">
+                <div>{this.cardList(this.props.match.params.username)}</div>
+
+                {/* <table className="table">
                     <thead className="thead-light">
                         <tr>
                             <th>User</th>
@@ -163,7 +241,7 @@ export default class LoggedExercises extends Component {
                     <tbody>
                         {this.exerciseList(this.props.match.params.username)}
                     </tbody>
-                </table>
+                </table> */}
 
             </div>
 

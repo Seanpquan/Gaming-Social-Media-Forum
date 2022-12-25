@@ -1,0 +1,56 @@
+/* * {
+    box-sizing: border-box;
+    padding: 10
+} */
+
+.card {
+    background: rgb(252, 250, 211);
+    margin: 20px;
+    border-radius: 10px;
+  }
+
+.topRow {
+    background: rgb(230, 250, 255);
+    border-radius: 10px;
+}
+
+.ownPostRow {
+    background: rgb(255, 220, 220);
+    border-radius: 10px;
+}
+
+.actionRow {
+    background: rgb(230, 255, 229);
+    border-radius: 10px;
+    padding: 5px 0px;
+}
+
+.card a.top {
+    float: left;
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+}
+
+.card a.right {
+    float: right;
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+}
+
+.card a.title {
+    font-size: 20px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+}
+
+.card a.descrip {
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+}
+
+
