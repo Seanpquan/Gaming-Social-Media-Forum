@@ -32,7 +32,8 @@ export default class EditExercise extends Component {
                     username: response.data.username,
                     description: response.data.description,
                     duration: response.data.duration,
-                    date: new Date(response.data.date)
+                    date: new Date(response.data.date),
+                    comments: response.data.comments
                 })
             })
             .catch(function (error) {
@@ -119,7 +120,8 @@ export default class EditExercise extends Component {
                     username: this.state.username,
                     description: this.state.description,
                     duration: this.state.duration,
-                    date: this.state.date
+                    date: this.state.date,
+                    comments: this.state.comments
                 }
 
 

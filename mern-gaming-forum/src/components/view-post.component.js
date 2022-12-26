@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../Card.css'
+import { useHistory } from "react-router-dom";
 
-const Comment = props => (
-    <tr>
-        <td>
-            <Link to={"/logged-exercises/" + props.comment.username}>{props.comment.username}</Link>
-        </td>
-        <td>{props.comment.contents}</td>
-        <td>
-            <input id="clickMe" type="button" value="reply" onClick={() => editCommentBox(props.comment.postID, props.comment.username)} />
-        </td>
-    </tr>
+
+const CardComment = props => (
+    <div class="card">
+        <div class="topRow">
+            <a href={"/logged-exercises/" + props.comment.username} class="top">Posted by: {props.comment.username}</a>
+        </div>
+        <p>{props.comment.contents}</p>
+        <div class="rightSide">
+            <input id="clickMe" type="submit" value="Reply" onClick={() => editCommentBox(props.comment.postID, props.comment.username)} />
+        </div>
+        
+    </div>
 )
 
 const editCommentBox = (postID, username) => {
@@ -63,7 +67,7 @@ export default class ViewPost extends Component {
         this.getCookie = this.getCookie.bind(this);
         this.onChangeNewComment = this.onChangeNewComment.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.commentList = this.commentList.bind(this);
+        this.cardCommentList = this.cardCommentList.bind(this);
 
         let textInCommentBox = '';
         if (replyuser != null) {
@@ -133,7 +137,9 @@ export default class ViewPost extends Component {
         })
     }
 
-    commentList() {
+
+
+    cardCommentList() {
         let numberOfComments = this.state.comments.length / 2;
 
         let commentList = [];
@@ -146,9 +152,8 @@ export default class ViewPost extends Component {
             commentList.push(comment);
         }
 
-
         return commentList.map(currentcomment => {
-            return <Comment comment={currentcomment} />
+            return <CardComment comment={currentcomment} />
         })
     }
 
@@ -209,12 +214,16 @@ export default class ViewPost extends Component {
             comment_box.focus();
         };
 
+
         return (
             <div>
                 {/* <input type="text" id="my_textbox" value="My Text" />
                 <button id="my_button">Focus</button> */}
                 {/* <p>You are on the View Post component for {this.props.match.params.id}</p> */}
-                <h2>{this.state.description}</h2>
+                <h2 class="titleRow">
+                    {this.state.description}
+                    <a href="javascript:window.history.back();">BACK</a>
+                </h2>
                 <h5>Posted on {stringDate}, by {this.state.username}</h5>
                 <p>{this.state.duration}</p>
                 <hr></hr>
@@ -235,25 +244,7 @@ export default class ViewPost extends Component {
                     </div>
                 </form>
                 <br></br>
-                <div className='rowC'>
-                    <div>
-                        <table className="table">
-                            <thead className="thead-light">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Comment</th>
-                                    <th>Reply</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.commentList()}
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
-
-
+                <div>{this.cardCommentList()}</div>
             </div>
         )
     }

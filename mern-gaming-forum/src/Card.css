@@ -11,7 +11,7 @@
 
 .card:hover {
     background: rgb(255, 248, 121);
-    transform: scale(1.1);
+    transform: scale(1.03);
   }
 
 .topRow {
@@ -48,6 +48,13 @@
     color: rgb(49, 49, 49);
 }
 
+.card a.rightDate {
+    float: right;
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+}
+
 .card a.right:hover {
     float: right;
     padding: 5px;
@@ -69,4 +76,30 @@
     color: rgb(49, 49, 49);
 }
 
+.card rightSide {
+    position:absolute;
+    width: 50px;
+    height: 50px;
+    top: 38%;
+    right: -5%;
+}
 
+.card input {
+    padding:0px;
+}
+
+.titleRow {
+    font-weight: 700;
+}
+
+.titleRow a {
+    float: right;
+    text-decoration: none;
+    color: rgb(255, 0, 0);
+}
+
+.titleRow a:hover {
+    float: right;
+    text-decoration: none;
+    color: rgb(186, 0, 0);
+}

@@ -5,28 +5,12 @@ import { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../Card.css'
 const cutOffDescLength = 300;  //description length cutoff before "... {continued}"
-//Exercise component. a functional react component
-const Exercise = props => (
-    <tr>
-        <td>
-            <Link to={"/logged-exercises/" + props.exercise.username}>{props.exercise.username}</Link>
-        </td>
-        <td>
-            <Link to={"/view-post/" + props.exercise._id}>{props.exercise.description}</Link>
-        </td>
-        <td>{bodyPreview(props.exercise.duration.substring(0, 50))}</td>
-        <td>{props.exercise.date.substring(5, 10)}</td>
-        <td>
-            <Link to={"/edit/" + props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
-        </td>
-    </tr>
-)
 
 const CardConst = props => (
     <div class="card">
         <div class="topRow">
             <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
-            <a href={"/view-post/" + props.exercise._id} class="right"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+            <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
         </div>
         <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
         <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
@@ -44,7 +28,7 @@ const OtherCardConst = props => (
     <div class="card">
         <div class="topRow">
             <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
-            <a href={"/view-post/" + props.exercise._id} class="right"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+            <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
         </div>
         <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
         <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
@@ -55,7 +39,6 @@ const OtherCardConst = props => (
 )
 
 
-
 {/* <td>{props.exercise.duration.substring(0, 50)}</td> */ }
 const bodyPreview = (beginningOfBody) => {
     if (beginningOfBody.length == cutOffDescLength) {
@@ -64,19 +47,6 @@ const bodyPreview = (beginningOfBody) => {
     return beginningOfBody;
 }
 
-//other person's exercise (not the current user)
-const OthersExercise = props => (
-    <tr>
-        <td>
-            <Link to={"/logged-exercises/" + props.exercise.username}>{props.exercise.username}</Link>
-        </td>
-        <td>
-            <Link to={"/view-post/" + props.exercise._id}>{props.exercise.description}</Link>
-        </td>
-        <td>{bodyPreview(props.exercise.duration.substring(0, 50))}</td>
-        <td>{props.exercise.date.substring(5, 10)}</td>
-    </tr>
-)
 //"#" means link goes nowhere      
 //class component
 export default class LoggedExercises extends Component {
@@ -131,45 +101,6 @@ export default class LoggedExercises extends Component {
 
     selectedUsername = this.props.match.params.username;
 
-    exerciseList(selectedUsername) {
-        let cookieUsername = this.getCookie("currentCookie");
-        //console.log('selectedUsername: ' + selectedUsername);
-        if (selectedUsername !== "ALL" && selectedUsername === cookieUsername) {
-            return this.state.exercises
-                .filter(function (currentexercise) {
-                    return currentexercise.username == selectedUsername;
-                })
-                .map(currentexercise => {
-                    return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;
-                })  //these are three 'props'
-        }
-        if (selectedUsername !== "ALL" && selectedUsername !== cookieUsername) {
-            return this.state.exercises
-                .filter(function (currentexercise) {
-                    return currentexercise.username == selectedUsername;
-                })
-                .map(currentexercise => {
-                    return <OthersExercise exercise={currentexercise} key={currentexercise._id} />;
-                })  //these are three 'props'
-        }
-        if (selectedUsername === "ALL") {
-            //show all users
-            //console.log("ALL users selected");
-
-            console.log('cookieUsername: ' + cookieUsername);
-            return this.state.exercises
-                .map(currentexercise => {
-
-                    if (currentexercise.username == cookieUsername) {
-
-                        return <Exercise exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;
-                    }
-                    else {
-                        return <OthersExercise exercise={currentexercise} key={currentexercise._id} />;
-                    }
-                })
-        }
-    }
 
     cardList(selectedUsername) {
         let cookieUsername = this.getCookie("currentCookie");
