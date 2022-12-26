@@ -203,7 +203,7 @@ export default class ViewPost extends Component {
     }
 
     render() {
-        let stringDate = this.state.date.toString().substring(3, 16);
+        let stringDate = this.state.date.toString().substring(3, 15);
         window.onload = function () {
             const comment_box = document.getElementById('comment_box');
             comment_box.focus();
@@ -215,7 +215,7 @@ export default class ViewPost extends Component {
                 <button id="my_button">Focus</button> */}
                 {/* <p>You are on the View Post component for {this.props.match.params.id}</p> */}
                 <h2>{this.state.description}</h2>
-                <h5>Posted on {stringDate}, by {this.state.username}.</h5>
+                <h5>Posted on {stringDate}, by {this.state.username}</h5>
                 <p>{this.state.duration}</p>
                 <hr></hr>
 

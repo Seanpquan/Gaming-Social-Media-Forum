@@ -9,6 +9,11 @@
     border-radius: 10px;
   }
 
+.card:hover {
+    background: rgb(255, 248, 121);
+    transform: scale(1.1);
+  }
+
 .topRow {
     background: rgb(230, 250, 255);
     border-radius: 10px;
@@ -32,11 +37,22 @@
     color: rgb(49, 49, 49);
 }
 
+.card a.top:hover {
+    color: rgb(255, 0, 0);
+}
+
 .card a.right {
     float: right;
     padding: 5px;
     text-decoration: none;
     color: rgb(49, 49, 49);
+}
+
+.card a.right:hover {
+    float: right;
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(255, 0, 0);
 }
 
 .card a.title {
