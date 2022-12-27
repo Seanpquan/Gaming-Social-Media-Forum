@@ -69,6 +69,7 @@ export default class CreateUser extends Component {
                 const user = {
                     username: inputtedUsername,
                     password: this.state.password,
+                    pic: '',
                 }
 
                 this.clearCookie();
@@ -80,7 +81,8 @@ export default class CreateUser extends Component {
 
                 this.setState({
                     username: '', //once they've submitted a new user, don't take back to home. 
-                    password: ''
+                    password: '',
+                    pic: '',
                 })              //instead give option to submit multiple users.
                 console.log('this.state.username: ' + inputtedUsername);
                 //this.createCookie("currentCookie", inputtedUsername, 1);

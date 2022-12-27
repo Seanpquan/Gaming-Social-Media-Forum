@@ -24,7 +24,7 @@ export default class EditExercise extends Component {
     }
 
     componentDidMount() {
-
+        console.log('this.props.match.params.id: ' + this.props.match.params.id);
         axios.get('/exercises/' + this.props.match.params.id)
             .then(response => {
                 console.log('response.data: ' + JSON.stringify(response.data));
@@ -125,7 +125,7 @@ export default class EditExercise extends Component {
                 }
 
 
-                console.log(exercise);
+                // console.log(exercise);
                 let promises2 = [];
                 promises2.push(
                     axios.post('/exercises/update/' + this.props.match.params.id, exercise)

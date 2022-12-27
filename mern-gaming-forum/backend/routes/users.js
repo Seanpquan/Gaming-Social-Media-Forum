@@ -10,10 +10,12 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     const username = req.body.username;
     const password = req.body.password;
+    const pic = req.body.pic;
 
     const newUser = new User({
         username,
         password,
+        pic,
     });
 
     newUser.save()
@@ -38,6 +40,8 @@ router.route('/update/:id').post((req, res) => {  //req is request, res is the r
         .then(user => {
             user.username = req.body.username;
             user.password = req.body.password;
+            user.pic = req.body.pic;
+
             user.save()
                 .then(() => res.json('User updated!'))
                 .catch(err => res.status(400).json('Error: ' + err));

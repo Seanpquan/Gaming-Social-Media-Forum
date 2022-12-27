@@ -13,6 +13,7 @@ import EditUser from "./components/edit-user.component";
 import Login from "./components/login.component";
 import ViewPost from "./components/view-post.component";
 import Logout from "./components/logout.component";
+import EditProfile from "./components/edit-profile.component";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/view-post/:id" component={ViewPost} />
         <Route path="/logout" component={Logout} />
+        <Route path="/edit-profile/" component={EditProfile} />
       </div>
     </Router>
   );

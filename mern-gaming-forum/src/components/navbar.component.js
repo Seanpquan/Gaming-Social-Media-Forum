@@ -24,6 +24,11 @@ export default class Navbar extends Component {
                 <div className="collapse navbar-collapse justify-content-end">
                     <ul className="navbar navbar-nav ">
                         <li className="navbar-item">
+                            <Link to="/edit-profile" className="nav-link">Edit Profile</Link>
+                        </li>
+                    </ul>
+                    <ul className="navbar navbar-nav ">
+                        <li className="navbar-item">
                             <Link to="/user" className="nav-link">Create Account</Link>
                         </li>
                     </ul>
