@@ -4,36 +4,50 @@ import axios from 'axios';
 import { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../Card.css'
-const cutOffDescLength = 300;  //description length cutoff before "... {continued}"
+const cutOffDescLength = 350;  //description length cutoff before "... {continued}"
 
 const CardConst = props => (
-    <div class="card">
-        <div class="topRow">
-            <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
-            <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+    <div class="parent">
+        <div class="leftBox">
+            <img className="smallPic" src={props.pic} />
+            <a href={"/logged-exercises/" + props.exercise.username} class="top">By: {props.exercise.username}  </a> 
+            <p> Date: {props.exercise.date.substring(5, 10)}</p>
         </div>
-        <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
-        <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
-        <div class="actionRow">
-            <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
-        </div>
-        <div class="ownPostRow">
-            <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }} class="right">Delete</a>
-            <a href={"/edit/" + props.exercise._id} class="right">Edit</a>
+        <div class="card">
+                {/* <div class="topRow">
+                    <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
+                    <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+                </div> */}
+                <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
+                <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
+                <div class="actionRow">
+                    <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
+                </div>
+                <div class="ownPostRow">
+                    <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }} class="right">Delete</a>
+                    <a href={"/edit/" + props.exercise._id} class="right">Edit</a>
+                </div>
         </div>
     </div>
 )
 
 const OtherCardConst = props => (
-    <div class="card">
-        <div class="topRow">
-            <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
-            <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+    <div class="parent">
+        <div class="leftBox">
+            <img className="smallPic" src={props.pic} />
+            <a href={"/logged-exercises/" + props.exercise.username} class="top">By: {props.exercise.username}  </a> 
+            <p> Date: {props.exercise.date.substring(5, 10)}</p>
         </div>
-        <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
-        <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
-        <div class="actionRow">
-            <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
+        <div class="card">
+                {/* <div class="topRow">
+                    <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
+                    <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
+                </div> */}
+                <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
+                <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
+                <div class="actionRow">
+                    <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
+                </div>
         </div>
     </div>
 )
@@ -57,7 +71,10 @@ export default class LoggedExercises extends Component {
         this.getCookie = this.getCookie.bind(this);
 
 
-        this.state = { exercises: [] };  //empty array of exercises
+        this.state = { 
+            exercises: [],
+            usernameToPic: {},
+        };  
     }
 
 
@@ -81,9 +98,24 @@ export default class LoggedExercises extends Component {
 
     //get the list of exercises from database
     componentDidMount() {
-        axios.get('/exercises/')
-            .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
-                this.setState({ exercises: response.data })
+
+        
+        //populate usernameToPic (username to picture map)
+        axios.get('/users/')
+            .then(response => {
+                let allUsers = response.data.map(user => user);  //allUsers is an array that stores all users to iterate over
+                for (const curUser of allUsers) {
+                    this.state.usernameToPic[curUser.username] = curUser.pic;
+                }
+                // console.log("usernameToPic then: " + this.state.usernameToPic["sean"]);
+
+                axios.get('/exercises/')
+                .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
+                    this.setState({ exercises: response.data })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
             })
             .catch((error) => {
                 console.log(error);
@@ -111,7 +143,7 @@ export default class LoggedExercises extends Component {
                     return currentexercise.username == selectedUsername;
                 })
                 .map(currentexercise => {
-                        return <CardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;                
+                        return <CardConst exercise={currentexercise} deleteExercise={this.deleteExercise} pic={this.state.usernameToPic[currentexercise.username]} key={currentexercise._id} />;                
                     }
                 )
         }
@@ -123,7 +155,7 @@ export default class LoggedExercises extends Component {
                     return currentexercise.username == selectedUsername;
                 })
                 .map(currentexercise => {
-                        return <OtherCardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;                
+                        return <OtherCardConst exercise={currentexercise} deleteExercise={this.deleteExercise} pic={this.state.usernameToPic[currentexercise.username]} key={currentexercise._id} />;                
                     }
                 )
         }
@@ -133,10 +165,11 @@ export default class LoggedExercises extends Component {
                 return newarray
                 .map(currentexercise => {
                     if (currentexercise.username == cookieUsername) {
-                        return <CardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;
+                        // console.log("usernameToPic returning: " + this.state.usernameToPic["sean"]);
+                        return <CardConst exercise={currentexercise} deleteExercise={this.deleteExercise} pic={this.state.usernameToPic[currentexercise.username]} key={currentexercise._id} />;
                     }
                     else {
-                        return <OtherCardConst exercise={currentexercise} deleteExercise={this.deleteExercise} key={currentexercise._id} />;
+                        return <OtherCardConst exercise={currentexercise} deleteExercise={this.deleteExercise} pic={this.state.usernameToPic[currentexercise.username]} key={currentexercise._id} />;
                     }
                         
                     }
@@ -152,7 +185,7 @@ export default class LoggedExercises extends Component {
     }
 
     render() { //7 days in a week
-        console.log('document.cookie: ' + document.cookie);
+        // console.log('document.cookie: ' + document.cookie);
 
         return (
             <div>

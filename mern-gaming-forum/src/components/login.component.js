@@ -127,7 +127,7 @@ export default class Login extends Component {
                         deleteAllCookies();
 
                         this.createCookie("currentCookie", inputtedUsername, 1)
-                        console.log('document.cookie: ' + document.cookie);
+                        // console.log('document.cookie: ' + document.cookie);
                         this.props.history.push('/');
                         //window.location = '/';
                     })

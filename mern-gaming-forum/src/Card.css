@@ -3,10 +3,44 @@
     padding: 10
 } */
 
+.parent {
+    display: flex;
+    box-sizing: border-box;
+}
+
+.leftBox a.top {
+    float: left;
+    padding: 5px;
+    text-decoration: none;
+    color: rgb(49, 49, 49);
+}
+
+.leftBox a.top:hover {
+    color: rgb(250, 0, 0);
+}
+
+.leftBox p {
+    float: left;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.leftBox {
+    float:left;
+    width: 10%;
+    margin: 8px;
+    border-radius: 10px;
+    background: rgb(230, 250, 255);
+    
+}
+
 .card {
     background: rgb(252, 250, 211);
-    margin: 20px;
+    margin: 8px;
     border-radius: 10px;
+    float:right;
+    width: 90%;
+    box-sizing: border-box;
   }
 
 .card:hover {
@@ -20,11 +54,17 @@
 }
 
 .ownPostRow {
+    float:right;
+    position: absolute;
+    right: 0;
     background: rgb(255, 220, 220);
     border-radius: 10px;
 }
 
+
 .actionRow {
+    position: absolute;
+    bottom: 0;
     background: rgb(230, 255, 229);
     border-radius: 10px;
     padding: 5px 0px;
@@ -103,3 +143,29 @@
     text-decoration: none;
     color: rgb(186, 0, 0);
 }
+
+.largeProfilePic {
+    width: 200px;
+    height: 200px;
+}
+
+.largeProfilePic img{
+    border-radius: 50%;
+}
+
+
+
+.mainBox {
+    float:right;
+    width: 80%;
+    box-sizing: border-box;
+    background-color: red;
+}
+
+img.smallPic{
+    aspect-ratio : 1 / 1;
+    border-radius: 50%;
+    width:100%;
+}
+
+/* Posts from ___ part */

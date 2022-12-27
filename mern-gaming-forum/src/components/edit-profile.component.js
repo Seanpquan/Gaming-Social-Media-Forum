@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import FileBase64 from 'react-file-base64';
-
+import '../Card.css'
 export default class EditProfile extends Component {
     constructor(props) {
         super(props);
@@ -156,8 +156,12 @@ export default class EditProfile extends Component {
                     </div>
                 </form>
 
-                <img className="activator" style={{ width: 200, height: 200 }} src={this.state.pic} />
+                <div className="largeProfilePic">
+                    <img src={this.state.pic} />
+                </div>
             </div>
         )
     }
 }
+
+//style={{ width: 200, height: 200,}}
