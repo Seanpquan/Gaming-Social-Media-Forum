@@ -1,10 +1,13 @@
 .profParent {
-    background: rgb(252, 250, 211);
+    display:flex;
+    background: rgb(216, 255, 225);
     overflow: hidden;
+    border-radius: 20px;
 }
 
 .profLeftBox {
     float:left;
+    margin: 10px;
     border-radius: 10px;
     background: rgb(210, 246, 255);
 } 
@@ -12,7 +15,10 @@
 
 .profRightBox {
     float:right;
+    margin: 10px;
     width: 70%;
+    border-radius: 10px;
+    background: rgb(252, 250, 211);
     box-sizing: border-box;
   } 
 

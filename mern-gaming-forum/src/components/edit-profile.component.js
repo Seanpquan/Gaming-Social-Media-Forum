@@ -131,6 +131,9 @@ export default class EditProfile extends Component {
                                 <input type="submit" value="Save Profile Pic" className="btn btn-primary" />
                             </div>
                         </form>
+                        <div className="largeProfilePic">
+                            <img src={this.state.pic} />
+                        </div>
                     </div>
                 
 
@@ -150,11 +153,9 @@ export default class EditProfile extends Component {
                                 <input type="submit" value="Save Biography" className="btn btn-primary" />
                             </div>
                         </form>
+                        <h4>Current bio:</h4>
+                        <p>{this.state.bio}</p>
                     </div>                
-                </div>
-
-                <div className="largeProfilePic">
-                    <img src={this.state.pic} />
                 </div>
             </div>
         )
