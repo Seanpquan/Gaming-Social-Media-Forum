@@ -150,7 +150,7 @@ export default class EditProfile extends Component {
                                 <input type="submit" value="Save Biography" className="btn btn-primary" />
                             </div>
                         </form>
-                        <h4>Current bio:</h4>
+                        <h4>New bio:</h4>
                         <p>{this.state.bio}</p>
                     </div>                
                 </div>
