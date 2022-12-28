@@ -62,7 +62,7 @@ const Profile = props => (
             </div>
             <div class="profRightBox">
                 <h3>About me:</h3>
-                <p>Biography text Biography text Biography text Biography text Biography text</p>
+                <p>{props.bio}</p>
             </div>
             
         </div>
@@ -94,6 +94,7 @@ export default class LoggedExercises extends Component {
         this.state = { 
             exercises: [],
             usernameToPic: {},
+            usernameToBio: {},
         };  
     }
 
@@ -126,6 +127,7 @@ export default class LoggedExercises extends Component {
                 let allUsers = response.data.map(user => user);  //allUsers is an array that stores all users to iterate over
                 for (const curUser of allUsers) {
                     this.state.usernameToPic[curUser.username] = curUser.pic;
+                    this.state.usernameToBio[curUser.username] = curUser.bio;
                 }
                 // console.log("usernameToPic then: " + this.state.usernameToPic["sean"]);
 
@@ -200,7 +202,7 @@ export default class LoggedExercises extends Component {
 
     profile(username) {
         if (username !== "ALL") {
-            return <Profile username = {username} pic={this.state.usernameToPic[username]}/>;
+            return <Profile bio = {this.state.usernameToBio[username]} username = {username} pic={this.state.usernameToPic[username]}/>;
         }
     }
 

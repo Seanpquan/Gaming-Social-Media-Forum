@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import FileBase64 from 'react-file-base64';
 import '../Card.css'
+import '../Profile.css'
 export default class EditProfile extends Component {
     constructor(props) {
         super(props);
         this.getCookie = this.getCookie.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        // this.onChangeBio = this.onChangeBio(this);
 
         this.state = { 
             username: '',
             password: '',
             pic: '',
             userID: '',
+            bio: '',
         }
     }
 
@@ -42,6 +45,7 @@ export default class EditProfile extends Component {
                         username: response.data.username,
                         password: response.data.password,
                         pic: response.data.pic,
+                        bio: response.data.bio,
                     })
 
                 })
@@ -54,41 +58,6 @@ export default class EditProfile extends Component {
         .catch((error) => {
             console.log(error);
         })
-
-
-        //for loop over all users
-
-
-        // axios.get('/users/')
-        //     .then(response => {
-        //         if (response.data.length > 0) {
-        //             console.log("YEET: " + response[0].username);
-        //             //for loop over response
-        //                 //if curResponse.username == cookieUsername
-        //                     //setState with username, pass, and pic
-        //         }
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
-
-
-
-        // console.log('this.props.match.params.id: ' + this.props.match.params.id);
-        // axios.get('/users/' + this.props.match.params.id)
-        //     .then(response => {
-        //         //console.log('response.data: ' + JSON.stringify(response.data));
-        //         this.setState({
-        //             username: response.data.username,
-        //             password: response.data.password,
-        //             pic: response.data.pic,
-        //         })
-
-
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     })
     }
 
     //https://www.w3schools.com/js/js_cookies.asp
@@ -117,6 +86,7 @@ export default class EditProfile extends Component {
             username: this.state.username,
             password: this.state.password,
             pic: this.state.pic,
+            bio: this.state.bio,
         }
 
         // console.log("this.state.userID: " + this.state.userID);
@@ -128,11 +98,16 @@ export default class EditProfile extends Component {
         );
 
         Promise.all(promises).then(() => {
-            console.log("updated user: " + user);
+            // console.log("updated user: " + user);
+            this.props.history.push('/logged-exercises/' + this.state.username);
         });
             
 
     }
+
+    // onChangeBio(e) {
+    //     this.setState({bio: e.target.value})
+    // }
 
 
     render() {
@@ -142,19 +117,41 @@ export default class EditProfile extends Component {
         }
         return (
             <div>
-                <h3>Edit Profile</h3>
-
-                <form action="" onSubmit={this.onSubmit}>
-                    <FileBase64
-                        type="file"
-                        required
-                        multiple={false}
-                        onDone={({ base64 }) => this.setState({pic: base64})}
-                    />
-                    <div className="form-group">
-                        <input type="submit" value="Save profile pic" className="btn btn-primary" />
+                <div class="profParent">
+                    <div class="profLeftBox">
+                        <h3>Edit Profile</h3>
+                        <form action="" onSubmit={this.onSubmit}>
+                            <FileBase64
+                                type="file"
+                                required
+                                multiple={false}
+                                onDone={({ base64 }) => this.setState({pic: base64})}
+                            />
+                            <div className="form-group">
+                                <input type="submit" value="Save Profile Pic" className="btn btn-primary" />
+                            </div>
+                        </form>
                     </div>
-                </form>
+                
+
+                    <div class="profRightBox">
+                        <h3>Edit Biography</h3>
+                        <form onSubmit={this.onSubmit}>
+                            <div className="form-group">
+                                <label>Bio </label>
+                                <input 
+                                    type="text"
+                                    className="form-control"
+                                    value={this.state.bio}
+                                    onChange={(e) => this.setState({bio: e.target.value})}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <input type="submit" value="Save Biography" className="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>                
+                </div>
 
                 <div className="largeProfilePic">
                     <img src={this.state.pic} />
