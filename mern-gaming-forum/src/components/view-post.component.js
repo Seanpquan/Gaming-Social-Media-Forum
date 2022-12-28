@@ -92,6 +92,7 @@ export default class ViewPost extends Component {
             newComment: textInCommentBox,
             replyUserState: replyuser,
             usernameToPic: {},
+            pic: '',
         }
 
         this.setState({ newComment: '' });
@@ -117,6 +118,7 @@ export default class ViewPost extends Component {
                     duration: response.data.duration,
                     date: new Date(response.data.date),
                     comments: response.data.comments,
+                    pic: response.data.pic,
                 })
             })
 
@@ -245,10 +247,9 @@ export default class ViewPost extends Component {
                     {' ' + this.state.description}
                     <a href="javascript:window.history.back();">BACK</a>
                 </h2>
-                <a href={"/logged-exercises/" + this.state.username}>Posted on {stringDate}, By: {this.state.username}  </a> 
-                
+                <a href={"/logged-exercises/" + this.state.username}>Posted on {stringDate}, By: {this.state.username}  </a>                 
                 <p>{this.state.duration}</p>
-                <hr></hr>
+                <img className="postPicBig" src={this.state.pic} />
 
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
