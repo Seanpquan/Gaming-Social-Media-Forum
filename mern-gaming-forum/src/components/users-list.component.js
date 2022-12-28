@@ -1,26 +1,39 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../Card.css'
+import '../Comment.css'
 //User component. a functional react component
 const User = props => (
-    <tr>
-        <td>{props.user.username}</td>
-        <td>
-            <Link to={"/logged-exercises/" + props.user.username}>view</Link>
-        </td>
-        <td>
-            <a href="#" onClick={() => { props.deleteUser(props.user._id) }}>delete</a>
-        </td>
-    </tr>
+    <div class="parent">
+        <div class="leftBox">
+            <img className="smallPic" src={props.pic} />
+        </div>
+        <div class="card">
+            <div class="topRow">
+                <a href={"/logged-exercises/" + props.user.username} class="top">username: {props.user.username}</a>
+            </div>
+            <p>{props.user.bio}</p>
+            <div class="ownPostRow">
+                <a href="#" onClick={() => { props.deleteUser(props.user._id) }} class="right">CLICK TO DELETE ACCOUNT</a>
+            </div>
+            
+        </div>
+    </div>
 )
 
 const OthersUser = props => (
-    <tr>
-        <td>{props.user.username}</td>
-        <td>
-            <Link to={"/logged-exercises/" + props.user.username}>view</Link>
-        </td>
-    </tr>
+    <div class="parent">
+        <div class="leftBox">
+            <img className="smallPic" src={props.pic} />
+        </div>
+        <div class="card">
+            <div class="topRow">
+                <a href={"/logged-exercises/" + props.user.username} class="top">username: {props.user.username}</a>
+            </div>
+            <p>{props.user.bio}</p>
+        </div>
+    </div>
 )
 //"#" means link goes nowhere      
 //class component
@@ -30,9 +43,11 @@ export default class UsersList extends Component {
 
         this.deleteUser = this.deleteUser.bind(this);
         this.getCookie = this.getCookie.bind(this);
+
         this.state = {
             users: [],
             exercises: [],
+            usernameToPic: {},
         };  //empty array of users
     }
     //get the list of exercises from database
@@ -40,15 +55,21 @@ export default class UsersList extends Component {
         axios.get('/users/')
             .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                 this.setState({ users: response.data })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
 
-        //get all the exercises in an array
-        axios.get('/exercises/')
-            .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
-                this.setState({ exercises: response.data })
+                //populate usernameToPic (username to picture map)
+                let allUsers = response.data.map(user => user);  //allUsers is an array that stores all users to iterate over
+                for (const curUser of allUsers) {
+                    this.state.usernameToPic[curUser.username] = curUser.pic;
+                }
+
+                //get all the exercises in an array
+                axios.get('/exercises/')
+                .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
+                    this.setState({ exercises: response.data })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
             })
             .catch((error) => {
                 console.log(error);
@@ -70,16 +91,14 @@ export default class UsersList extends Component {
 
 
     userList() {
-        //getting Youtube url
-        // console.log('document.cookie from users-list: ' + document.cookie);
         let cookieUsername = this.getCookie("currentCookie");
         return this.state.users
             .map(currentuser => {
                 if (currentuser.username == cookieUsername) {
-                    return <User user={currentuser} deleteUser={this.deleteUser} key={currentuser._id} />;
+                    return <User pic={this.state.usernameToPic[currentuser.username]} user={currentuser} deleteUser={this.deleteUser} key={currentuser._id} />;
                 }
                 else {
-                    return <OthersUser user={currentuser} key={currentuser._id} />;
+                    return <OthersUser pic={this.state.usernameToPic[currentuser.username]} user={currentuser} key={currentuser._id} />;
                 }
             })  //these are two 'props'
     }
@@ -183,18 +202,9 @@ export default class UsersList extends Component {
         return (
             <div>
                 <h3>User list</h3>
-                <table className="table">
-                    <thead className="thead-light">
-                        <tr>
-                            <th>User</th>
-                            <th>Posts</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.userList()}
-                    </tbody>
-                </table>
+                <div>
+                    {this.userList()}
+                </div>
             </div>
         )
     }
