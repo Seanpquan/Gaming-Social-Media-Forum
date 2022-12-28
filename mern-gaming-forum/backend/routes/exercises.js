@@ -13,6 +13,7 @@ router.route('/add').post((req, res) => {
   const duration = req.body.duration;
   const date = Date.parse(req.body.date);
   const comments = req.body.comments;
+  const pic = req.body.pic;
 
   const newExercise = new Exercise({
     username,
@@ -20,6 +21,7 @@ router.route('/add').post((req, res) => {
     duration,
     date,
     comments,
+    pic,
   });
 
   newExercise.save()
@@ -47,6 +49,7 @@ router.route('/update/:id').post((req, res) => {  //req is request, res is the r
       exercise.duration = req.body.duration;  //assigning it to fields of exercise that already exists.
       exercise.date = Date.parse(req.body.date);
       exercise.comments = req.body.comments;
+      exercise.pic = req.body.pic;
 
       exercise.save()
         .then(() => res.json('Exercise updated!'))

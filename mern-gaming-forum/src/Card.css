@@ -42,6 +42,11 @@
     box-sizing: border-box;
   }
 
+.rightPicBox {
+    width: 30%;
+    background: rgb(25, 0, 255);
+}
+
 .card:hover {
     background: rgb(255, 248, 121);
     transform: scale(1.03);
@@ -163,5 +168,12 @@ img.smallPic{
     aspect-ratio : 1 / 1;
     border-radius: 50%;
     width:100%;
+}
+
+img.postPic{
+    object-fit: cover;
+    max-width:200px;
+    max-height:200px;
+    padding: 5px;
 }
 

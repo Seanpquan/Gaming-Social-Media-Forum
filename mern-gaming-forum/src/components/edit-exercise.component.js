@@ -19,7 +19,8 @@ export default class EditExercise extends Component {
             description: '',
             duration: '',
             date: new Date(),
-            users: []
+            users: [],
+            pic: '',
         }
     }
 
@@ -33,7 +34,8 @@ export default class EditExercise extends Component {
                     description: response.data.description,
                     duration: response.data.duration,
                     date: new Date(response.data.date),
-                    comments: response.data.comments
+                    comments: response.data.comments,
+                    pic: response.data.pic
                 })
             })
             .catch(function (error) {
@@ -121,7 +123,8 @@ export default class EditExercise extends Component {
                     description: this.state.description,
                     duration: this.state.duration,
                     date: this.state.date,
-                    comments: this.state.comments
+                    comments: this.state.comments,
+                    pic: this.state.pic
                 }
 
 

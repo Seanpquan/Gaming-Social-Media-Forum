@@ -16,7 +16,10 @@ const CardConst = props => (
         </div>
         <div class="card">
                 <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
+                <img className="postPic" src={props.exercise.pic} />
                 <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
+                <br></br>
+                <br></br>
                 <div class="actionRow">
                     <a href={"/view-post/" + props.exercise._id} class="descrip">{props.exercise.comments.length/2} comments</a>
                 </div>
@@ -25,6 +28,10 @@ const CardConst = props => (
                     <a href={"/edit/" + props.exercise._id} class="right">Edit</a>
                 </div>
         </div>
+        {/* <div class="rightPicBox">
+            
+        </div> */}
+        
     </div>
 )
 

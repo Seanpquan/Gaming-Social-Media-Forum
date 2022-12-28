@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
+import FileBase64 from 'react-file-base64';
 
 export default class CreateExercises extends Component {
     constructor(props) { //always call super when defining constrcutor for subclass
@@ -12,6 +13,7 @@ export default class CreateExercises extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeDuration = this.onChangeDuration.bind(this);
         this.onChangeDate = this.onChangeDate.bind(this);
+        this.onChangePic = this.onChangePic.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         //update state automatically update page with new values
         this.state = { //state is how you create variables in react. using ':' not '='. 
@@ -19,7 +21,8 @@ export default class CreateExercises extends Component {
             description: '',
             duration: '',
             date: new Date(),
-            users: [] //page will have dropdown menu with users to associate with exercise
+            users: [], //page will have dropdown menu with users to associate with exercise
+            pic: '',
         }
     }
     //react lifecycle method. this is automaticlaly called before anything is displayed on the page
@@ -66,6 +69,12 @@ export default class CreateExercises extends Component {
         })
     }
 
+    onChangePic(e) {
+        this.setState({
+            pic: e.target.value
+        })
+    }
+
     onChangeDuration(e) {
         this.setState({
             duration: e.target.value
@@ -86,7 +95,8 @@ export default class CreateExercises extends Component {
             username: this.getCookie("currentCookie"),
             description: this.state.description,
             duration: this.state.duration,
-            date: this.state.date
+            date: this.state.date,
+            pic: this.state.pic
         }
 
         console.log(exercise);
@@ -133,6 +143,13 @@ export default class CreateExercises extends Component {
                             onChange={this.onChangeDuration}
                         />
                     </div>
+                    <br></br>
+                    <FileBase64
+                        type="file"
+                        multiple={false}
+                        onDone={({ base64 }) => this.setState({pic: base64})}
+                    />
+                    <img src={this.state.pic} />
                     <br></br>
 
                     <div className="form-group">
