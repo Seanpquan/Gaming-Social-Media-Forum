@@ -105,9 +105,6 @@ export default class EditProfile extends Component {
 
     }
 
-    // onChangeBio(e) {
-    //     this.setState({bio: e.target.value})
-    // }
 
 
     render() {
@@ -141,13 +138,13 @@ export default class EditProfile extends Component {
                         <h3>Edit Biography</h3>
                         <form onSubmit={this.onSubmit}>
                             <div className="form-group">
-                                <label>Bio </label>
                                 <input 
                                     type="text"
                                     className="form-control"
                                     value={this.state.bio}
                                     onChange={(e) => this.setState({bio: e.target.value})}
                                 />
+                            {/* <textarea rows="5" cols="60" name="text" placeholder="Enter text">{this.state.bio}</textarea> */}
                             </div>
                             <div className="form-group">
                                 <input type="submit" value="Save Biography" className="btn btn-primary" />
