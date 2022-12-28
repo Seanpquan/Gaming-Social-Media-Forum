@@ -13,7 +13,7 @@ const CardComment = props => (
         </div>
         <div class="card">
             <div class="topRow">
-                <a href={"/logged-exercises/" + props.comment.username} class="top">Posted by: {props.comment.username}</a>
+                <a href={"/logged-exercises/" + props.comment.username} class="top">By: {props.comment.username}</a>
             </div>
             <p>{props.comment.contents}</p>
             <div class="rightSide">
