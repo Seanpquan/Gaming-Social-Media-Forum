@@ -2,20 +2,27 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../Card.css'
+import '../Comment.css'
 import { useHistory } from "react-router-dom";
 
 
 const CardComment = props => (
-    <div class="card">
-        <div class="topRow">
-            <a href={"/logged-exercises/" + props.comment.username} class="top">Posted by: {props.comment.username}</a>
+    <div class="parent">
+        <div class="leftBox">
+            <img className="smallPic" src={props.pic} />
         </div>
-        <p>{props.comment.contents}</p>
-        <div class="rightSide">
-            <input id="clickMe" type="submit" value="Reply" onClick={() => editCommentBox(props.comment.postID, props.comment.username)} />
+        <div class="card">
+            <div class="topRow">
+                <a href={"/logged-exercises/" + props.comment.username} class="top">Posted by: {props.comment.username}</a>
+            </div>
+            <p>{props.comment.contents}</p>
+            <div class="rightSide">
+                <input id="clickMe" type="submit" value="Reply" onClick={() => editCommentBox(props.comment.postID, props.comment.username)} />
+            </div>
+            
         </div>
-        
     </div>
+
 )
 
 const editCommentBox = (postID, username) => {
@@ -84,6 +91,7 @@ export default class ViewPost extends Component {
             comments: [],
             newComment: textInCommentBox,
             replyUserState: replyuser,
+            usernameToPic: {},
         }
 
         this.setState({ newComment: '' });
@@ -92,7 +100,15 @@ export default class ViewPost extends Component {
 
     componentDidMount() {
 
-        axios.get('/exercises/' + this.props.match.params.id)
+        //populate usernameToPic (username to picture map)
+        axios.get('/users/')
+        .then(response => {
+            let allUsers = response.data.map(user => user);  //allUsers is an array that stores all users to iterate over
+            for (const curUser of allUsers) {
+                this.state.usernameToPic[curUser.username] = curUser.pic;
+            }
+
+            axios.get('/exercises/' + this.props.match.params.id)
             .then(response => {
                 // console.log('response.data: ' + JSON.stringify(response.data));
                 this.setState({
@@ -103,11 +119,15 @@ export default class ViewPost extends Component {
                     comments: response.data.comments,
                 })
             })
+
             .catch(function (error) {
                 console.log(error);
             })
+        })
+        .catch((error) => {
+            console.log(error);
+        })
     }
-
 
     //https://www.w3schools.com/js/js_cookies.asp
     getCookie(cname) {
@@ -153,7 +173,7 @@ export default class ViewPost extends Component {
         }
 
         return commentList.map(currentcomment => {
-            return <CardComment comment={currentcomment} />
+            return <CardComment comment={currentcomment} pic={this.state.usernameToPic[currentcomment.username]}/>
         })
     }
 
@@ -221,10 +241,12 @@ export default class ViewPost extends Component {
                 <button id="my_button">Focus</button> */}
                 {/* <p>You are on the View Post component for {this.props.match.params.id}</p> */}
                 <h2 class="titleRow">
-                    {this.state.description}
+                    <img className="smallFixedProfile" src={this.state.usernameToPic[this.state.username]} />
+                    {' ' + this.state.description}
                     <a href="javascript:window.history.back();">BACK</a>
                 </h2>
-                <h5>Posted on {stringDate}, by {this.state.username}</h5>
+                <a href={"/logged-exercises/" + this.state.username}>Posted on {stringDate}, By: {this.state.username}  </a> 
+                
                 <p>{this.state.duration}</p>
                 <hr></hr>
 

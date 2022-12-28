@@ -15,10 +15,6 @@ const CardConst = props => (
             <p> Date: {props.exercise.date.substring(5, 10)}</p>
         </div>
         <div class="card">
-                {/* <div class="topRow">
-                    <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
-                    <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
-                </div> */}
                 <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
                 <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
                 <div class="actionRow">
@@ -40,10 +36,6 @@ const OtherCardConst = props => (
             <p> Date: {props.exercise.date.substring(5, 10)}</p>
         </div>
         <div class="card">
-                {/* <div class="topRow">
-                    <a href={"/logged-exercises/" + props.exercise.username} class="top">Posted by: {props.exercise.username}  </a> 
-                    <a href={"/view-post/" + props.exercise._id} class="rightDate"> Posted on: {props.exercise.date.substring(5, 10)}</a>
-                </div> */}
                 <a href={"/view-post/" + props.exercise._id} class="title">{props.exercise.description}</a>
                 <a href={"/view-post/" + props.exercise._id} class="descrip">{bodyPreview(props.exercise.duration.substring(0, cutOffDescLength))}</a>
                 <div class="actionRow">
