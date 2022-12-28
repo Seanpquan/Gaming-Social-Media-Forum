@@ -1,0 +1,23 @@
+.profParent {
+    background: rgb(252, 250, 211);
+    overflow: hidden;
+}
+
+.profLeftBox {
+    float:left;
+    border-radius: 10px;
+    background: rgb(210, 246, 255);
+} 
+
+
+.profRightBox {
+    float:right;
+    width: 70%;
+    box-sizing: border-box;
+  } 
+
+img.bigPic{
+    aspect-ratio : 1 / 1;
+    border-radius: 50%;
+    width:300px;
+}

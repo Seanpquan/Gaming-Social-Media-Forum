@@ -4,6 +4,7 @@ import axios from 'axios';
 import { PureComponent } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import '../Card.css'
+import '../Profile.css'
 const cutOffDescLength = 350;  //description length cutoff before "... {continued}"
 
 const CardConst = props => (
@@ -52,6 +53,21 @@ const OtherCardConst = props => (
     </div>
 )
 
+const Profile = props => (
+    <div>
+        <h2>{props.username}'s profile</h2>
+        <div class="profParent">
+            <div class="profLeftBox">
+                <img className="bigPic" src={props.pic} />
+            </div>
+            <div class="profRightBox">
+                <h3>About me:</h3>
+                <p>Biography text Biography text Biography text Biography text Biography text</p>
+            </div>
+            
+        </div>
+    </div>
+)
 
 {/* <td>{props.exercise.duration.substring(0, 50)}</td> */ }
 const bodyPreview = (beginningOfBody) => {
@@ -61,6 +77,9 @@ const bodyPreview = (beginningOfBody) => {
     return beginningOfBody;
 }
 
+
+
+
 //"#" means link goes nowhere      
 //class component
 export default class LoggedExercises extends Component {
@@ -69,6 +88,7 @@ export default class LoggedExercises extends Component {
 
         this.deleteExercise = this.deleteExercise.bind(this);
         this.getCookie = this.getCookie.bind(this);
+        this.profile = this.profile.bind(this);
 
 
         this.state = { 
@@ -178,17 +198,24 @@ export default class LoggedExercises extends Component {
 
     }
 
+    profile(username) {
+        if (username !== "ALL") {
+            return <Profile username = {username} pic={this.state.usernameToPic[username]}/>;
+        }
+    }
 
     getCurrentDate() {
         let currDate = new Date();
         return currDate.toISOString().substring(5, 10);
     }
 
+
     render() { //7 days in a week
         // console.log('document.cookie: ' + document.cookie);
 
         return (
             <div>
+                <div>{this.profile(this.props.match.params.username)}</div>
                 <h3>Posts from {this.props.match.params.username}</h3>
                 <div>{this.cardList(this.props.match.params.username)}</div>
 
