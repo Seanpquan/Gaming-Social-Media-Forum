@@ -160,9 +160,9 @@ export default class CreateExercises extends Component {
                         multiple={false}
                         onDone={({ base64 }) => this.setState({pic: base64})}
                     />
-                    <img src={this.state.pic} />
+                    <img className="postPicBig" src={this.state.pic} />
                     <br></br>
-
+                    <p>{"(File must be < 70 kB)"}</p>
                     <div className="form-group">
                         <input type="submit" value="Create Post" className="btn btn-primary" />
                     </div>

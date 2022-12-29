@@ -124,6 +124,9 @@ export default class EditProfile extends Component {
                 <div class="profParent">
                     <div class="profLeftBox">
                         <h3>Edit Profile</h3>
+                        <div className="largeProfilePic">
+                            <img className="smallPic" src={this.state.pic} />
+                        </div>
                         <form action="" onSubmit={this.onSubmit}>
                             <FileBase64
                                 type="file"
@@ -135,9 +138,7 @@ export default class EditProfile extends Component {
                                 <input type="submit" value="Save Profile Pic" className="btn btn-primary" />
                             </div>
                         </form>
-                        <div className="largeProfilePic">
-                            <img src={this.state.pic} />
-                        </div>
+                        <p>{"(File must be < 70 kB)"}</p>
                     </div>
                 
 

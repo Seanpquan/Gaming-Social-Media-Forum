@@ -134,6 +134,7 @@ export default class UsersList extends Component {
                         duration: response.data[i].duration,
                         date: response.data[i].date,
                         comments: newCommentsArray,  //only thing changed
+                        pic: response.data[i].pic,
                     }
 
                     axios.post('/exercises/update/' + response.data[i]._id, exercise)
