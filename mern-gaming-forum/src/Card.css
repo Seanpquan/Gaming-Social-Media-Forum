@@ -184,3 +184,7 @@ img.postPicBig{
     max-height:1000px;
     padding: 5px;
 }
+
+.auto_height { /* CSS */
+    width: 100%;
+  }

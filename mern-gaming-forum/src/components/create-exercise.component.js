@@ -75,9 +75,11 @@ export default class CreateExercises extends Component {
         })
     }
 
-    onChangeDuration(e) {
+    onChangeDuration() {
+        console.log("textValue: " + document.getElementById("myTextarea").value);
+        this.state.duration = document.getElementById("myTextarea").value;
         this.setState({
-            duration: e.target.value
+            duration: document.getElementById("myTextarea").value
         })
     }
     //use library to make calendar
@@ -91,6 +93,7 @@ export default class CreateExercises extends Component {
         e.preventDefault(); //instead of doing normally do, it will do what we want (the following:)
         //you CAN create variables as long as its only used in this one method
         this.onChangeUsername();
+        this.onChangeDuration();
         const exercise = {
             username: this.getCookie("currentCookie"),
             description: this.state.description,
@@ -114,6 +117,11 @@ export default class CreateExercises extends Component {
         });
     }
 
+    auto_height(elem) {  /* javascript */
+        elem.style.height = "1px";
+        elem.style.height = (elem.scrollHeight)+"px";
+    }
+
     render() {
         if (this.getCookie("currentCookie").length == 0) {
             alert("Please log in to post!");
@@ -134,7 +142,7 @@ export default class CreateExercises extends Component {
                         />
                     </div>
                     <br></br>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>Body: </label>
                         <input
                             type="text"
@@ -142,7 +150,10 @@ export default class CreateExercises extends Component {
                             value={this.state.duration}
                             onChange={this.onChangeDuration}
                         />
-                    </div>
+                    </div> */}
+                    <textarea id="myTextarea" class="auto_height" oninput="auto_height(this)" rows = "5" name = "myTextarea" placeholder="Enter description of post here...">
+
+                    </textarea>
                     <br></br>
                     <FileBase64
                         type="file"
