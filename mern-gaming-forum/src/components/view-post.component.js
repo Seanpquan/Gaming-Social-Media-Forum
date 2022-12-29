@@ -237,6 +237,10 @@ export default class ViewPost extends Component {
         // }
     }
 
+    auto_grow(e){
+        e.style.height = "1000px";
+      }
+
     render() {
         let stringDate = this.state.date.toString().substring(3, 15);
         window.onload = function () {
@@ -255,8 +259,11 @@ export default class ViewPost extends Component {
                     {' ' + this.state.description}
                     <a href="javascript:window.history.back();">BACK</a>
                 </h2>
-                <a href={"/logged-exercises/" + this.state.username}>Posted on {stringDate}, By: {this.state.username}  </a>                 
-                <p>{this.state.duration}</p>
+                <a href={"/logged-exercises/" + this.state.username}>Posted on {stringDate}, By: {this.state.username}  </a>       
+                <div class="multiline">
+                    {this.state.duration}
+                </div>          
+                
                 <div>
                     {this.imageSection()}
                 </div>

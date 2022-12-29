@@ -144,7 +144,7 @@ export default class EditProfile extends Component {
                     <div class="profRightBox">
                         <h3>Edit Biography</h3>
                         <form onSubmit={this.onSubmit}>
-                            <textarea defaultValue={this.state.bio} id="myTextarea" class="auto_height" oninput="auto_height(this)" rows = "5" name = "myTextarea"/>
+                            <textarea defaultValue={this.state.bio} id="myTextarea" class="auto_heightFixedHeight" oninput="auto_height(this)" rows = "5" name = "myTextarea"/>
                             <div className="form-group">
                                 <input type="submit" value="Save Biography" className="btn btn-primary" />
                             </div>

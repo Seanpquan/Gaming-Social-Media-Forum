@@ -64,7 +64,9 @@ const Profile = props => (
             </div>
             <div class="profRightBox">
                 <h3>About me:</h3>
-                <p>{props.bio}</p>
+                <div class="multiline">
+                    {props.bio}
+                </div>        
             </div>
             
         </div>
