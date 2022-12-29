@@ -154,6 +154,7 @@ export default class CreateUser extends Component {
                             value={this.state.password}
                             onChange={this.onChangePassword}
                         />
+                        <p>(Password must be 4 characters or more)</p>
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Create User" className="btn btn-primary" />
