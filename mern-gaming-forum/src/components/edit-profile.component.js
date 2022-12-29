@@ -77,10 +77,17 @@ export default class EditProfile extends Component {
         return "";
     }
 
+    onChangeBio() {
+        this.state.bio = document.getElementById("myTextarea").value;
+        this.setState({
+            bio: document.getElementById("myTextarea").value
+        })
+    }
 
 
     onSubmit(e) {
         e.preventDefault();
+        this.onChangeBio();
 
         const user = {
             username: this.state.username,
@@ -137,21 +144,11 @@ export default class EditProfile extends Component {
                     <div class="profRightBox">
                         <h3>Edit Biography</h3>
                         <form onSubmit={this.onSubmit}>
-                            <div className="form-group">
-                                <input 
-                                    type="text"
-                                    className="form-control"
-                                    value={this.state.bio}
-                                    onChange={(e) => this.setState({bio: e.target.value})}
-                                />
-                            {/* <textarea rows="5" cols="60" name="text" placeholder="Enter text">{this.state.bio}</textarea> */}
-                            </div>
+                            <textarea defaultValue={this.state.bio} id="myTextarea" class="auto_height" oninput="auto_height(this)" rows = "5" name = "myTextarea"/>
                             <div className="form-group">
                                 <input type="submit" value="Save Biography" className="btn btn-primary" />
                             </div>
                         </form>
-                        <h4>New bio:</h4>
-                        <p>{this.state.bio}</p>
                     </div>                
                 </div>
             </div>
