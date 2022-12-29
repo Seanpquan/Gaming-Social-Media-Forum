@@ -37,23 +37,25 @@ export default class EditExercise extends Component {
                     comments: response.data.comments,
                     pic: response.data.pic
                 })
+                
+                axios.get('/users/')
+                .then(response => {
+                    if (response.data.length > 0) {
+                        this.setState({
+                            users: response.data.map(user => user.username),
+                        })
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
             })
             .catch(function (error) {
                 console.log(error);
             })
 
 
-        axios.get('/users/')
-            .then(response => {
-                if (response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.username),
-                    })
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+
 
     }
 
@@ -87,9 +89,11 @@ export default class EditExercise extends Component {
         })
     }
 
-    onChangeDuration(e) {
+    onChangeDuration() {
+        console.log("textValue: " + document.getElementById("myTextarea").value);
+        this.state.duration = document.getElementById("myTextarea").value;
         this.setState({
-            duration: e.target.value
+            duration: document.getElementById("myTextarea").value
         })
     }
 
@@ -102,7 +106,7 @@ export default class EditExercise extends Component {
     onSubmit(e) {
         e.preventDefault();
         this.onChangeUsername();
-
+        this.onChangeDuration();
 
         let editedBool = false;
         axios.get('/exercises/' + this.props.match.params.id)
@@ -147,6 +151,10 @@ export default class EditExercise extends Component {
 
     }
 
+    durationText() {
+        return this.state.duration;
+    }
+
     render() {
         return (
             <div>
@@ -162,7 +170,7 @@ export default class EditExercise extends Component {
                         />
                     </div>
                     <br></br>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>Body </label>
                         <input
                             type="text"
@@ -170,7 +178,8 @@ export default class EditExercise extends Component {
                             value={this.state.duration}
                             onChange={this.onChangeDuration}
                         />
-                    </div>
+                    </div> */}
+                    <textarea defaultValue={this.state.duration} id="myTextarea" class="auto_height" oninput="auto_height(this)" rows = "5" name = "myTextarea"/>
                     <br></br>
 
                     <div className="form-group">
