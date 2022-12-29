@@ -206,6 +206,7 @@ export default class ViewPost extends Component {
                         duration: this.state.duration,
                         date: this.state.date,
                         comments: this.state.comments,
+                        pic: this.state.pic,
                     }
 
 
