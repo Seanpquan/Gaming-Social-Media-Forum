@@ -179,7 +179,7 @@ img.postPic{
 
 img.postPicBig{
     object-fit: cover;
-    min-height:500px;
+    min-height:00px;
     max-width:1000px;
     max-height:1000px;
     padding: 5px;

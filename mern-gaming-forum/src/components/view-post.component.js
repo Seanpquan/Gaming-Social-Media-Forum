@@ -93,6 +93,7 @@ export default class ViewPost extends Component {
             replyUserState: replyuser,
             usernameToPic: {},
             pic: '',
+            hasPic: false,
         }
 
         this.setState({ newComment: '' });
@@ -229,6 +230,12 @@ export default class ViewPost extends Component {
         }
     }
 
+    imageSection() {
+        // if (this.state.hasPic === true) {
+            return <img className="postPicBig" src={this.state.pic} />
+        // }
+    }
+
     render() {
         let stringDate = this.state.date.toString().substring(3, 15);
         window.onload = function () {
@@ -249,7 +256,10 @@ export default class ViewPost extends Component {
                 </h2>
                 <a href={"/logged-exercises/" + this.state.username}>Posted on {stringDate}, By: {this.state.username}  </a>                 
                 <p>{this.state.duration}</p>
-                <img className="postPicBig" src={this.state.pic} />
+                <div>
+                    {this.imageSection()}
+                </div>
+                
 
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
