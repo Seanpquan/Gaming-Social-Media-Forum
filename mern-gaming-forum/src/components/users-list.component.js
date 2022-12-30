@@ -117,8 +117,8 @@ export default class UsersList extends Component {
                         if (response.data[i].comments[k] == usernameToDelete) {
                             // console.log('k: ' + k + 'user: ' + response.data[i].comments[k]);
                             // console.log('k+1: ' + response.data[i].comments[k + 1]);
-                            newCommentsArray.push('deleted');
-                            newCommentsArray.push('deleted');
+                            // newCommentsArray.push('deleted');
+                            // newCommentsArray.push('deleted');
                         }
                         else {
                             newCommentsArray.push(response.data[i].comments[k]);
