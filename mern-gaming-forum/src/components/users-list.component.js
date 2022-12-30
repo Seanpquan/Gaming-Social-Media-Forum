@@ -104,12 +104,12 @@ export default class UsersList extends Component {
     }
 
     removeCommentsWithDeletedUser(usernameToDelete) {
-        let newCommentsArray = [];  //same as before, but without deleted user
         console.log('usernameToDelete: ' + usernameToDelete);
         axios.get('/exercises/')
             .then(response => {   //we want to get all the fields for exercises. entire JSON object, put into array
                 // console.log('response.data: ' + JSON.stringify(response.data));
                 for (let i = 0; i < response.data.length; i++) {
+                    let newCommentsArray = [];  //same as before, but without deleted user
                     //console.log(response.data[i].comments); //gets comment from specific post
 
                     for (let k = 0; k < response.data[i].comments.length; k = k + 2) {  //iterates thru comments on specific post
@@ -133,7 +133,7 @@ export default class UsersList extends Component {
                         description: response.data[i].description,
                         duration: response.data[i].duration,
                         date: response.data[i].date,
-                        comments: newCommentsArray,  //only thing changed
+                        comments: newCommentsArray.slice(),  //only thing changed
                         pic: response.data[i].pic,
                     }
 
